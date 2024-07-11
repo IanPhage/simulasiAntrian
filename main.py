@@ -154,7 +154,7 @@ def create_simulation_table(lcg_table1, lcg_table2):
     return simulation_table
 
 # Streamlit app
-st.title("Streamlit App for LCG Simulation")
+st.title("Aplikasi Untuk Simulasi Antrian")
 
 # Input baru untuk data1
 st.sidebar.title("Tambah Data Waktu Antar Kedatangan Telepon Pemesanan")
