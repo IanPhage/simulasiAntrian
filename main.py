@@ -182,7 +182,7 @@ st.write("### Tabel Frekuensi Waktu Antar Kedatangan Telepon Pemesanan")
 st.write("Mean:", round(mean1, 2))
 st.write("Variance:", round(var1, 2))
 st.write("Standard Deviation:", round(std_dev1, 2))
-st.dataframe(freq_table1)
+st.dataframe(freq_table1, hide_index=True)
 
 # Hitung distribusi frekuensi dan statistik untuk Data2
 freq_table2, mean2, var2, std_dev2 = calculate_frequency(st.session_state.data2)
@@ -192,7 +192,7 @@ st.write("### Tabel Frekuensi Waktu Penerimaan Telepon Pemesanan")
 st.write("Mean:", round(mean2, 2))
 st.write("Variance:", round(var2, 2))
 st.write("Standard Deviation:", round(std_dev2, 2))
-st.dataframe(freq_table2)
+st.dataframe(freq_table2, hide_index=True)
 
 # Plot histogram based on frequency distribution for Data1
 st.write("### Histogram Waktu Antar Kedatangan Telepon Pemesanan")
@@ -226,17 +226,17 @@ lcg_table2 = generate_lcg_table(seed2, a2, c2, m2, n, mean2, std_dev2)
 # Tampilkan tabel LCG
 if lcg_table1 is not None:
     st.write("### LCG Table 1")
-    st.dataframe(lcg_table1)
+    st.dataframe(lcg_table1, hide_index=True)
 
 if lcg_table2 is not None:
     st.write("### LCG Table 2")
-    st.dataframe(lcg_table2)
+    st.dataframe(lcg_table2, hide_index=True)
 
 # Buat dan tampilkan tabel simulasi
 simulation_table = create_simulation_table(lcg_table1, lcg_table2)
 if not simulation_table.empty:
     st.write("### Simulation Table")
-    st.dataframe(simulation_table)
+    st.dataframe(simulation_table, hide_index=True)
     st.write("## Keterangan : ")
     st.write("A = Waktu Kedatangan Telepon Pemesanan")
     st.write("B = Waktu Penerimaan Telepon Pemesanan")
