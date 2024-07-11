@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import math
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Inisialisasi data1 dan data2 dengan menggunakan state
 if 'data1' not in st.session_state:
@@ -247,3 +249,60 @@ if not simulation_table.empty:
     st.write("G = Selesai Waktu Pelayanan")
     st.write("H = Waktu Pelanggan Menunggu Pelayanan")
     st.write("I = Waktu Customer Service Menganggur")
+
+
+    # Visualisasi insight dari tabel simulasi
+    st.write("### Insight Visualization")
+    
+    # Histogram waktu kedatangan telepon
+    fig, ax = plt.subplots()
+    ax.hist(simulation_table['C'], bins=30, alpha=0.7, label='Waktu Kedatangan (Detik)')
+    ax.set_xlabel('Waktu Kedatangan (Detik)')
+    ax.set_ylabel('Frekuensi')
+    ax.set_title('Distribusi Waktu Kedatangan Telepon Pemesanan')
+    ax.legend()
+    st.pyplot(fig)
+    
+    # Histogram waktu penerimaan telepon
+    fig, ax = plt.subplots()
+    ax.hist(simulation_table['E'], bins=30, alpha=0.7, label='Waktu Penerimaan (Detik)')
+    ax.set_xlabel('Waktu Penerimaan (Detik)')
+    ax.set_ylabel('Frekuensi')
+    ax.set_title('Distribusi Waktu Penerimaan Telepon Pemesanan')
+    ax.legend()
+    st.pyplot(fig)
+    
+    # Line plot kumulatif kedatangan
+    fig, ax = plt.subplots()
+    ax.plot(simulation_table['D'], label='Kumulatif Kedatangan (Detik)')
+    ax.set_xlabel('Indeks')
+    ax.set_ylabel('Kumulatif Kedatangan (Detik)')
+    ax.set_title('Kumulatif Waktu Kedatangan Telepon Pemesanan')
+    ax.legend()
+    st.pyplot(fig)
+
+    # Scatter plot waktu menunggu vs waktu menganggur
+    fig, ax = plt.subplots()
+    ax.scatter(simulation_table['H'], simulation_table['I'], alpha=0.7, label='Menunggu vs Menganggur')
+    ax.set_xlabel('Waktu Menunggu Pelayanan')
+    ax.set_ylabel('Waktu Menganggur Customer Service')
+    ax.set_title('Waktu Menunggu vs Waktu Menganggur Customer Service')
+    ax.legend()
+    st.pyplot(fig)
+    
+    # Time series plot kumulatif kedatangan
+    fig, ax = plt.subplots()
+    ax.plot(simulation_table['D'], label='Kumulatif Kedatangan (Detik)')
+    ax.plot(simulation_table['G'], label='Selesai Waktu Pelayanan (Detik)')
+    ax.set_xlabel('Indeks')
+    ax.set_ylabel('Waktu (Detik)')
+    ax.set_title('Time Series of Kumulatif Kedatangan and Selesai Waktu Pelayanan')
+    ax.legend()
+    st.pyplot(fig)
+
+    # Correlation heatmap
+    fig, ax = plt.subplots()
+    corr = simulation_table[['A', 'B', 'C', 'D', 'E', 'G', 'H', 'I']].corr()
+    sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
+    ax.set_title('Correlation Heatmap of Simulation Data')
+    st.pyplot(fig)
